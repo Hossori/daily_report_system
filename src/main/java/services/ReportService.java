@@ -11,18 +11,19 @@ import constants.JpaConst;
 import models.Report;
 import models.validators.ReportValidator;
 
-/*
- * 日報テーブルの操作にかかわる処理を行うクラス
+/**
+ * 日報テーブルの操作に関わる処理を行うクラス
  */
 public class ReportService extends ServiceBase {
-    /*
-     * 指定した従業員が作成した日報データを、
-     * 指定されたページ数の一覧画面に表示する分取得しReportViewのリストで返却する
+
+    /**
+     * 指定した従業員が作成した日報データを、指定されたページ数の一覧画面に表示する分取得しReportViewのリストで返却する
      * @param employee 従業員
      * @param page ページ数
      * @return 一覧画面に表示するデータのリスト
      */
     public List<ReportView> getMinePerPage(EmployeeView employee, int page) {
+
         List<Report> reports = em.createNamedQuery(JpaConst.Q_REP_GET_ALL_MINE, Report.class)
                 .setParameter(JpaConst.JPQL_PARM_EMPLOYEE, EmployeeConverter.toModel(employee))
                 .setFirstResult(JpaConst.ROW_PER_PAGE * (page - 1))
@@ -31,7 +32,7 @@ public class ReportService extends ServiceBase {
         return ReportConverter.toViewList(reports);
     }
 
-    /*
+    /**
      * 指定した従業員が作成した日報データの件数を取得し、返却する
      * @param employee
      * @return 日報データの件数
@@ -152,4 +153,5 @@ public class ReportService extends ServiceBase {
         em.getTransaction().commit();
 
     }
+
 }
