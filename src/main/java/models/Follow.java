@@ -23,11 +23,11 @@ import lombok.Setter;
 @Table(name=JpaConst.TABLE_FLW)
 @NamedQueries({
     // フォローしている全従業員の日報データを取得
-    @NamedQuery(name=JpaConst.Q_REP_GET_ALL_FOLLOWING,
-                query=JpaConst.Q_REP_GET_ALL_FOLLOWING_DEF),
+    @NamedQuery(name=JpaConst.Q_FLW_GET_ALL_FOLLOWING,
+                query=JpaConst.Q_FLW_GET_ALL_FOLLOWING_DEF),
     // フォローしている全従業員の日報件数を取得
-    @NamedQuery(name=JpaConst.Q_REP_COUNT_ALL_FOLLOWING,
-                query=JpaConst.Q_REP_COUNT_ALL_FOLLOWING_DEF)
+    @NamedQuery(name=JpaConst.Q_FLW_COUNT_ALL_FOLLOWING,
+                query=JpaConst.Q_FLW_COUNT_ALL_FOLLOWING_DEF)
 })
 @Getter
 @Setter
