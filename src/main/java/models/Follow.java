@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -34,9 +36,11 @@ public class Follow {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name=JpaConst.FLW_COL_FLWER)
+    @ManyToOne
+    @JoinColumn(name=JpaConst.FLW_COL_FLWER, nullable=false)
     private Employee follower;
 
-    @Column(name=JpaConst.FLW_COL_FLWED)
+    @ManyToOne
+    @JoinColumn(name=JpaConst.FLW_COL_FLWED, nullable=false)
     private Employee followed;
 }
