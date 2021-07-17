@@ -51,7 +51,10 @@ public enum AttributeConst {
     REP_ID("id"),
     REP_DATE("report_date"),
     REP_TITLE("title"),
-    REP_CONTENT("content");
+    REP_CONTENT("content"),
+
+    //フォローリスト
+    FLW_IS_FOLLOW_LIST("is_follow_list");
 
     private final String text;
     private final Integer i;

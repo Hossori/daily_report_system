@@ -22,6 +22,9 @@ import lombok.Setter;
  */
 @Table(name=JpaConst.TABLE_FLW)
 @NamedQueries({
+    // 指定した従業員がフォローしている全従業員を取得
+    @NamedQuery(name=JpaConst.Q_FLW_GET_MINE_FOLLOWING,
+                query=JpaConst.Q_FLW_GET_MINE_FOLLOWING_DEF),
     // フォローしている全従業員の日報データを取得
     @NamedQuery(name=JpaConst.Q_FLW_GET_ALL_FOLLOWING,
                 query=JpaConst.Q_FLW_GET_ALL_FOLLOWING_DEF),
