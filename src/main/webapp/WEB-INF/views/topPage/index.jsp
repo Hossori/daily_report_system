@@ -11,6 +11,8 @@
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
 <c:set var="commNew" value="${ForwardConst.CMD_NEW.getValue()}" />
 
+<c:set var="tgtFlw" value="${ForwardConst.TOP_TARGET_FOLLOWING.getValue()}" />
+
 <c:import url="../layout/app.jsp">
     <c:param name="content">
         <c:if test="${flush != null}">
@@ -19,7 +21,24 @@
             </div>
         </c:if>
         <h2>日報管理システムへようこそ</h2>
-        <h3>【自分の日報　一覧】</h3>
+        <c:choose>
+            <c:when test="${target == null}">
+                <h3>
+                    【自分の日報】
+                    <a href="<c:url value='?action=${actTop}&command=${commIdx}&target=${tgtFlw}' />">【フォローしている従業員の日報】</a>
+                </h3>
+            </c:when>
+            <c:when test="${target.equals(tgtFlw)}">
+                <h3>
+                    <a href="<c:url value='?action=${actTop}&command=${commIdx}' />">【自分の日報】</a>
+                    【フォローしている従業員の日報】
+                </h3>
+            </c:when>
+            <c:otherwise>
+                <a href="<c:url value='?action=${actTop}&command=${commIdx}' />">【自分の日報】</a>
+                <a href="<c:url value='?action=${actTop}&command=${commIdx}&target=${tgtFlw}' />">【フォローしている従業員の日報】</a>
+            </c:otherwise>
+        </c:choose>
         <table id="report_list">
             <tbody>
                 <tr>

@@ -64,6 +64,7 @@ public abstract class ActionBase {
         } catch(NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
                 | InvocationTargetException | NullPointerException e) {
             // commandの値が不正で実行できない場合エラー画面を呼び出し
+            System.err.println(e);
             forward(ForwardConst.FW_ERR_UNKNOWN);
         }
     }

@@ -23,6 +23,9 @@ public enum AttributeConst {
     //ログイン画面
     LOGIN_ERR("loginError"),
 
+    //トップページで表示する日報
+    TOP_TARGET("target"),
+
     //従業員管理
     EMPLOYEE("employee"),
     EMPLOYEES("employees"),

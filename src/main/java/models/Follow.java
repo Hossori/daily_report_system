@@ -21,9 +21,13 @@ import lombok.Setter;
  * フォローデータのDTOモデル
  */
 @Table(name=JpaConst.TABLE_FLW)
-@NamedQueries({ //ひとまず適当にクエリいれた
-    @NamedQuery(name="none",
-                query="SELECT f FROM Follow AS f")
+@NamedQueries({
+    // フォローしている全従業員の日報データを取得
+    @NamedQuery(name=JpaConst.Q_REP_GET_ALL_FOLLOWING,
+                query=JpaConst.Q_REP_GET_ALL_FOLLOWING_DEF),
+    // フォローしている全従業員の日報件数を取得
+    @NamedQuery(name=JpaConst.Q_REP_COUNT_ALL_FOLLOWING,
+                query=JpaConst.Q_REP_COUNT_ALL_FOLLOWING_DEF)
 })
 @Getter
 @Setter

@@ -33,6 +33,23 @@ public class ReportService extends ServiceBase {
     }
 
     /**
+     * 指定した従業員がフォローしている従業員の日報データを、
+     * 指定されたページ数の一覧画面に表示する分取得しReportViewのリストで返却する
+     * @param employee 従業員
+     * @param page ページ数
+     * @return 一覧画面に表示するデータのリスト
+     */
+    public List<ReportView> getFollowingPerPage(EmployeeView employee, int page) {
+
+        List<Report> reports = em.createNamedQuery(JpaConst.Q_REP_GET_ALL_FOLLOWING, Report.class)
+                .setParameter(JpaConst.JPQL_PARM_EMPLOYEE, EmployeeConverter.toModel(employee))
+                .setFirstResult(JpaConst.ROW_PER_PAGE * (page - 1))
+                .setMaxResults(JpaConst.ROW_PER_PAGE)
+                .getResultList();
+        return ReportConverter.toViewList(reports);
+    }
+
+    /**
      * 指定した従業員が作成した日報データの件数を取得し、返却する
      * @param employee
      * @return 日報データの件数
@@ -40,6 +57,20 @@ public class ReportService extends ServiceBase {
     public long countAllMine(EmployeeView employee) {
 
         long count = (long) em.createNamedQuery(JpaConst.Q_REP_COUNT_ALL_MINE, Long.class)
+                .setParameter(JpaConst.JPQL_PARM_EMPLOYEE, EmployeeConverter.toModel(employee))
+                .getSingleResult();
+
+        return count;
+    }
+
+    /**
+     * 指定した従業員がフォローしている従業員の日報データの件数を取得し、返却する
+     * @param employee
+     * @return 日報データの件数
+     */
+    public long countAllFollowing(EmployeeView employee) {
+
+        long count = (long) em.createNamedQuery(JpaConst.Q_REP_COUNT_ALL_FOLLOWING, Long.class)
                 .setParameter(JpaConst.JPQL_PARM_EMPLOYEE, EmployeeConverter.toModel(employee))
                 .getSingleResult();
 
