@@ -46,8 +46,6 @@ public interface JpaConst {
     String FLW_COL_ID = "id"; //id
     String FLW_COL_EMP = "employee_id"; //従業員のid
     String FLW_COL_FLWED = "followed_id"; //従業員がフォローしたid
-    //外部キー
-    String FLW_FRGN_FLWED = "employee_id";
 
     //Entity名
     String ENTITY_EMP = "employee"; //従業員
