@@ -2,6 +2,7 @@ package models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -37,10 +38,10 @@ public class Follow {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name=JpaConst.FLW_COL_FLWER, nullable=false)
-    private Employee follower;
+    @JoinColumn(name=JpaConst.FLW_COL_EMP, nullable=false)
+    private Employee employee;
 
     @ManyToOne
-    @JoinColumn(name=JpaConst.FLW_COL_FLWED, nullable=false)
+    @JoinColumn(name=JpaConst.FLW_COL_FLWED, foreignKey = @ForeignKey(name=JpaConst.FLW_FRGN_FLWED), nullable=false)
     private Employee followed;
 }

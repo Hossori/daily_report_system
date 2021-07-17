@@ -11,6 +11,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class FollowView {
     private Integer id;
-    private EmployeeView follower;
+    private EmployeeView employee;
     private EmployeeView followed;
 }
