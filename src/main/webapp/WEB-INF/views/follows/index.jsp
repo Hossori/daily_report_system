@@ -19,7 +19,7 @@
                     <th>操作</th>
                 </tr>
                 <c:forEach var="i" begin="0" end="${employees.size()-1}">
-                    <tr class="row${i % 2}">
+                    <tr class="row${(i+1) % 2}">
                         <td><c:out value="${employees.get(i).code}" /></td>
                         <td><c:out value="${employees.get(i).name}" /></td>
                         <td>
