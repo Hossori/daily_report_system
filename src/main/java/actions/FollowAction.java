@@ -37,8 +37,9 @@ public class FollowAction extends ActionBase {
 
         putRequestScope(AttributeConst.EMPLOYEES, employees);
         putRequestScope(AttributeConst.FLW_IS_FOLLOW_LIST, isFollowList);
+        putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
+
 
         forward(ForwardConst.FW_FLW_INDEX);
     }
-
 }

@@ -10,6 +10,16 @@
 
 <c:import url="../layout/app.jsp">
     <c:param name="content">
+        <c:if test="${flush != null}">
+            <div class="flush_success"><c:out value="${flush}" /></div>
+        </c:if>
+        <c:if test="${errors != null}">
+            <div class="flush_error">
+                <c:forEach var="error" items="${errors}">
+                    <c:out value="${error}" />
+                </c:forEach>
+            </div>
+        </c:if>
         <h2>従業員　一覧</h2>
         <table id="employee_list">
             <tbody>
@@ -43,5 +53,6 @@
                 </c:forEach>
             </tbody>
         </table>
+        <input type="hidden" name="${AttributeConst.TOKEN}" value="${_token}">
     </c:param>
 </c:import>
