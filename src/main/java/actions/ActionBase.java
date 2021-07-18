@@ -116,7 +116,7 @@ public abstract class ActionBase {
         String _token = getRequestParam(AttributeConst.TOKEN);
 
         if(_token == null || !(_token.equals(getTokenId()))) {
-
+            System.out.println("checkTokenメソッドがfalseを返しました。");
             // tokenが設定されていない、又はセッションIDと一致しない場合はエラー画面を表示
             forward(ForwardConst.FW_ERR_UNKNOWN);
 

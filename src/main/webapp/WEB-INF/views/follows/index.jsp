@@ -8,17 +8,10 @@
 <c:set var="commCrt" value="${ForwardConst.CMD_CREATE.getValue()}" />
 <c:set var="commDst" value="${ForwardConst.CMD_DESTROY.getValue()}" />
 
-<c:import url="../layout/app.jsp">
+<c:import url="/WEB-INF/views/layout/app.jsp">
     <c:param name="content">
         <c:if test="${flush != null}">
-            <div class="flush_success"><c:out value="${flush}" /></div>
-        </c:if>
-        <c:if test="${errors != null}">
-            <div class="flush_error">
-                <c:forEach var="error" items="${errors}">
-                    <c:out value="${error}" />
-                </c:forEach>
-            </div>
+            <div id="flush_success"><c:out value="${flush}" /></div>
         </c:if>
         <h2>従業員　一覧</h2>
         <table id="employee_list">
@@ -40,10 +33,16 @@
                                 <c:otherwise>
                                     <c:choose>
                                         <c:when test="${is_follow_list.get(i) == true}">
-                                            <a href="<c:url value='?action=${actFlw}&command=${commDst}&id=${employees.get(i).id}' />">フォロー解除</a>
+                                            <a href="#" onclick="(function(){
+                                                                    var id = ${employees.get(i).id};
+                                                                    doUnfollow(id);
+                                                                 })();">フォロー解除</a>
                                         </c:when>
                                         <c:otherwise>
-                                            <a href="<c:url value='?action=${actFlw}&command=${commCrt}&id=${employees.get(i).id}' />">フォロー</a>
+                                            <a href="#" onclick="(function(){
+                                                                    var id = ${employees.get(i).id};
+                                                                    doFollow(id);
+                                                                 })();">フォロー</a>
                                         </c:otherwise>
                                     </c:choose>
                                 </c:otherwise>
@@ -53,6 +52,23 @@
                 </c:forEach>
             </tbody>
         </table>
-        <input type="hidden" name="${AttributeConst.TOKEN}" value="${_token}">
+        <form name="create" method="POST" action="<c:url value='?action=${actFlw}&command=${commCrt}' />">
+            <input type="hidden" name="id">
+            <input type="hidden" name="_token" value="${_token}">
+        </form>
+        <form name="destroy" method="POST" action="<c:url value='?action=${actFlw}&command=${commDst}' />">
+            <input type="hidden" name="id">
+            <input type="hidden" name="_token" value="${_token}">
+        </form>
+        <script>
+            function doFollow(id) {
+                document.forms["create"].elements["id"].value = id;
+                document.forms["create"].submit();
+            }
+            function doUnfollow(id) {
+                document.forms["destroy"].elements["id"].value = id;
+                document.forms["destroy"].submit();
+            }
+        </script>
     </c:param>
 </c:import>

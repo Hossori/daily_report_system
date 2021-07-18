@@ -56,6 +56,7 @@ public interface JpaConst {
     String JPQL_PARM_CODE = "code"; //社員番号
     String JPQL_PARM_PASSWORD = "password"; //パスワード
     String JPQL_PARM_EMPLOYEE = "employee"; //従業員
+    String JPQL_PARM_FOLLOWED = "followed"; //フォローされている従業員
 
     //NamedQueryの nameとquery
     //全ての従業員をidの降順に取得する
@@ -95,4 +96,8 @@ public interface JpaConst {
     String Q_FLW_COUNT_ALL_FOLLOWING_DEF =
         "SELECT COUNT(r) FROM Report AS r INNER JOIN Follow AS f ON r.employee = f.followed WHERE f.employee = :"
                 + JPQL_PARM_EMPLOYEE;
+    //employee,followedを指定してFollowエンティティを取得する
+    String Q_FLW_GET_PRIMARYKEY = ".getPrimaryKey";
+    String Q_FLW_GET_PRIMARYKEY_DEF = "SELECT f FROM Follow AS f WHERE f.employee = :" + JPQL_PARM_EMPLOYEE
+                                                                    + " AND f.followed = :" + JPQL_PARM_FOLLOWED;
 }

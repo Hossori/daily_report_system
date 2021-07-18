@@ -30,7 +30,10 @@ import lombok.Setter;
                 query=JpaConst.Q_FLW_GET_ALL_FOLLOWING_DEF),
     // フォローしている全従業員の日報件数を取得
     @NamedQuery(name=JpaConst.Q_FLW_COUNT_ALL_FOLLOWING,
-                query=JpaConst.Q_FLW_COUNT_ALL_FOLLOWING_DEF)
+                query=JpaConst.Q_FLW_COUNT_ALL_FOLLOWING_DEF),
+    // 従業員,フォローされている従業員を指定して主キーを取得
+    @NamedQuery(name=JpaConst.Q_FLW_GET_PRIMARYKEY,
+                query=JpaConst.Q_FLW_GET_PRIMARYKEY_DEF)
 })
 @Getter
 @Setter
