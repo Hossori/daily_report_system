@@ -11,20 +11,6 @@ import models.Employee;
 public class FollowService extends ServiceBase {
 
     /*
-     * 指定されたページ数の一覧画面に表示するデータを取得し、EmployeeViewのリストで返却する
-     * @param page ページ数
-     * @return 表示するデータのリスト
-     */
-    public List<EmployeeView> getPerPage(int page) {
-        List<Employee> employees = em.createNamedQuery(JpaConst.Q_EMP_GET_ALL, Employee.class)
-                .setFirstResult(JpaConst.ROW_PER_PAGE * (page - 1))
-                .setMaxResults(JpaConst.ROW_PER_PAGE)
-                .getResultList();
-
-        return EmployeeConverter.toViewList(employees);
-    }
-
-    /*
      * @param loginEmployee ログイン中の従業員
      * @param employees 従業員のリスト
      * @return employeesがログイン中の従業員にフォローされているか否かのbooleanリスト
