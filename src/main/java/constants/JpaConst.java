@@ -47,10 +47,22 @@ public interface JpaConst {
     String FLW_COL_EMP = "employee_id"; //従業員のid
     String FLW_COL_FLWED = "followed_id"; //従業員がフォローしたid
 
+    //リアクションテーブル
+    String TABLE_REACT = "reactions"; //テーブル名
+    //リアクションテーブルカラム
+    String REACT_COL_ID = "id"; //id
+    String REACT_COL_EMP = "employee_id"; //従業員のid
+    String REACT_COL_REP = "report_id"; //リアクションしたレポートのid
+    String REACT_COL_REACT_TYPE = "reaction_type"; //リアクションの種類
+
+    int REACT_TYPE_GOOD = 0; //リアクション：いいね
+    int REACT_TYPE_PRAISE = 1; //リアクション：賞賛
+
     //Entity名
     String ENTITY_EMP = "employee"; //従業員
     String ENTITY_REP = "report"; //日報
     String ENTITY_FLW = "follow"; //フォロー
+    String ENTITY_REACT = "reaction"; //リアクション
 
     //JPQL内パラメータ
     String JPQL_PARM_CODE = "code"; //社員番号
