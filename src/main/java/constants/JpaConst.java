@@ -39,6 +39,7 @@ public interface JpaConst {
     String REP_COL_CONTENT = "content"; //日報の内容
     String REP_COL_CREATED_AT = "created_at"; //登録日時
     String REP_COL_UPDATED_AT = "updated_at"; //更新日時
+    String REP_COL_REACT_LIST = "reaction_list"; //リアクションリスト
 
     //フォローテーブル
     String TABLE_FLW = "follows"; //テーブル名
@@ -69,6 +70,7 @@ public interface JpaConst {
     String JPQL_PARM_PASSWORD = "password"; //パスワード
     String JPQL_PARM_EMPLOYEE = "employee"; //従業員
     String JPQL_PARM_FOLLOWED = "followed"; //フォローされている従業員
+    String JPQL_PARM_REPORT = "report"; //レポート
 
     //NamedQueryの nameとquery
     //全ての従業員をidの降順に取得する
@@ -112,4 +114,7 @@ public interface JpaConst {
     String Q_FLW_GET_PRIMARYKEY = ".getPrimaryKey";
     String Q_FLW_GET_PRIMARYKEY_DEF = "SELECT f FROM Follow AS f WHERE f.employee = :" + JPQL_PARM_EMPLOYEE
                                                                     + " AND f.followed = :" + JPQL_PARM_FOLLOWED;
+    //レポートに対するリアクションを取得する
+    String Q_REACT_GET_REPORT_REACTION = ".getReportReaction";
+    String Q_REACT_GET_REPORT_REACTION_DEF = "SELECT re FROM Reaction AS re WHERE re.report = :" + JPQL_PARM_REPORT;
 }

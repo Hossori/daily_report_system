@@ -2,11 +2,13 @@ package actions;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
 
 import actions.views.EmployeeView;
+import actions.views.ReactionView;
 import actions.views.ReportView;
 import constants.AttributeConst;
 import constants.ForwardConst;
@@ -45,7 +47,11 @@ public class ReportAction extends ActionBase {
         //指定されたページ数の一覧画面に表示する日報データを取得
         int page = getPage();
         List<ReportView> reports = service.getAllPerPage(page);
-
+        List<Integer> goodReactions = service.getReactionCounts(reports, JpaConst.REACT_TYPE_GOOD);
+        List<Integer> praiseReactions = service.getReactionCounts(reports, JpaConst.REACT_TYPE_PRAISE);
+        System.out.println(reports.size());
+        System.out.println(goodReactions.size());
+        System.out.println(praiseReactions.size());
         //全日報データの件数を取得
         long reportsCount = service.countAll();
 
@@ -53,6 +59,9 @@ public class ReportAction extends ActionBase {
         putRequestScope(AttributeConst.REP_COUNT, reportsCount); //全ての日報データの件数
         putRequestScope(AttributeConst.PAGE, page); //ページ数
         putRequestScope(AttributeConst.MAX_ROW, JpaConst.ROW_PER_PAGE); //1ページに表示するレコードの数
+
+        putRequestScope(AttributeConst.REACT_GOOD_LIST, goodReactions);
+        putRequestScope(AttributeConst.REACT_PRAISE_LIST, praiseReactions);
 
         //セッションにフラッシュメッセージが設定されている場合はリクエストスコープに移し替え、セッションからは削除する
         String flush = getSessionScope(AttributeConst.FLUSH);
@@ -113,7 +122,8 @@ public class ReportAction extends ActionBase {
                     getRequestParam(AttributeConst.REP_TITLE),
                     getRequestParam(AttributeConst.REP_CONTENT),
                     null,
-                    null);
+                    null,
+                    new ArrayList<ReactionView>());
 
             //日報情報登録
             List<String> errors = service.create(rv);

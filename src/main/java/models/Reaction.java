@@ -19,8 +19,8 @@ import lombok.Setter;
 
 @Table(name=JpaConst.TABLE_REACT)
 @NamedQueries({ //適当にクエリいれておく
-    @NamedQuery(name="getAll",
-                query="SELECT re from Reaction AS re")
+    @NamedQuery(name=JpaConst.Q_REACT_GET_REPORT_REACTION,
+                query=JpaConst.Q_REACT_GET_REPORT_REACTION_DEF)
 })
 
 @Getter

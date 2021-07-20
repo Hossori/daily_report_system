@@ -21,35 +21,37 @@
                     <th>氏名</th>
                     <th>操作</th>
                 </tr>
-                <c:forEach var="i" begin="0" end="${employees.size()-1}">
-                    <tr class="row${(i+1) % 2}">
-                        <td><c:out value="${employees.get(i).code}" /></td>
-                        <td><c:out value="${employees.get(i).name}" /></td>
-                        <td>
-                            <c:choose>
-                                <c:when test="${employees.get(i).deleteFlag == AttributeConst.DEL_FLAG_TRUE.getIntegerValue()}">
-                                    (削除済み)
-                                </c:when>
-                                <c:otherwise>
-                                    <c:choose>
-                                        <c:when test="${is_follow_list.get(i) == true}">
-                                            <a href="#" onclick="(function(){
-                                                                    var id = ${employees.get(i).id};
-                                                                    doUnfollow(id);
-                                                                 })();">フォロー解除</a>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <a href="#" onclick="(function(){
-                                                                    var id = ${employees.get(i).id};
-                                                                    doFollow(id);
-                                                                 })();">フォロー</a>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </c:otherwise>
-                            </c:choose>
-                        </td>
-                    </tr>
-                </c:forEach>
+                <c:if test="${0 < employees.size()}">
+                    <c:forEach var="i" begin="0" end="${employees.size()-1}">
+                        <tr class="row${(i+1) % 2}">
+                            <td><c:out value="${employees.get(i).code}" /></td>
+                            <td><c:out value="${employees.get(i).name}" /></td>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${employees.get(i).deleteFlag == AttributeConst.DEL_FLAG_TRUE.getIntegerValue()}">
+                                        (削除済み)
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:choose>
+                                            <c:when test="${is_follow_list.get(i) == true}">
+                                                <a href="#" onclick="(function(){
+                                                                        var id = ${employees.get(i).id};
+                                                                        doUnfollow(id);
+                                                                     })();">フォロー解除</a>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <a href="#" onclick="(function(){
+                                                                        var id = ${employees.get(i).id};
+                                                                        doFollow(id);
+                                                                     })();">フォロー</a>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </c:if>
             </tbody>
         </table>
         <form name="create" method="POST" action="<c:url value='?action=${actFlw}&command=${commCrt}' />">

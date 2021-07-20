@@ -1,10 +1,12 @@
 package services;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import actions.views.EmployeeConverter;
 import actions.views.EmployeeView;
+import actions.views.ReactionView;
 import actions.views.ReportConverter;
 import actions.views.ReportView;
 import constants.JpaConst;
@@ -89,6 +91,29 @@ public class ReportService extends ServiceBase {
                 .setMaxResults(JpaConst.ROW_PER_PAGE)
                 .getResultList();
         return ReportConverter.toViewList(reports);
+    }
+
+    /*
+     * 指定した種類のリアクション数を、レポートリストに対応させたリストで返却
+     * @param reports レポートのリスト
+     * @param reactionType カウントするリアクションの種類
+     * @return リアクション数のリスト
+     */
+    public List<Integer> getReactionCounts(List<ReportView> reports, Integer reactionType) {
+        List<Integer> list = new ArrayList<>();
+
+        for(ReportView rv:reports) {
+            Integer count = 0;
+            for(ReactionView rev:rv.getReactionList()) {
+                if(rev.getReactionType() == reactionType) {
+                    count++;
+                }
+            }
+
+            list.add(count);
+        }
+
+        return list;
     }
 
     /**
