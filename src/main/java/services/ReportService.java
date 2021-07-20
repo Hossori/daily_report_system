@@ -103,17 +103,31 @@ public class ReportService extends ServiceBase {
         List<Integer> list = new ArrayList<>();
 
         for(ReportView rv:reports) {
-            Integer count = 0;
-            for(ReactionView rev:rv.getReactionList()) {
-                if(rev.getReactionType() == reactionType) {
-                    count++;
-                }
-            }
+            Integer count;
+            count = getReactionCount(rv, reactionType);
 
             list.add(count);
         }
 
         return list;
+    }
+
+    /*
+     * レポートの指定した種類のリアクション数を返却
+     * @param rv レポートのビュー
+     * @param reactionType カウントするリアクションの種類
+     * @return リアクション数
+     */
+    public Integer getReactionCount(ReportView rv, Integer reactionType) {
+        Integer count = 0;
+
+        for(ReactionView rev:rv.getReactionList()) {
+            if(rev.getReactionType() == reactionType) {
+                count++;
+            }
+        }
+
+        return count;
     }
 
     /**

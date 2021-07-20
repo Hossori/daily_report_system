@@ -56,6 +56,9 @@ public enum AttributeConst {
     //フォローリスト
     FLW_IS_FOLLOW_LIST("is_follow_list"),
 
+    //リアクション
+    REACT_GOOD("react_good"),
+    REACT_PRAISE("react_praise"),
     //リアクションリスト
     REACT_GOOD_LIST("react_good_list"),
     REACT_PRAISE_LIST("react_praise_list");

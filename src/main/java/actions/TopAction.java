@@ -71,11 +71,18 @@ public class TopAction extends ActionBase {
             forward(ForwardConst.FW_ERR_UNKNOWN);
         }
 
+        //リアクションリストを格納
+        List<Integer> goodReactions = service.getReactionCounts(reports, JpaConst.REACT_TYPE_GOOD);
+        List<Integer> praiseReactions = service.getReactionCounts(reports, JpaConst.REACT_TYPE_PRAISE);
+
         putRequestScope(AttributeConst.REPORTS, reports); // 取得した日報データ
         putRequestScope(AttributeConst.REP_COUNT, myReportsCount); // ログイン中の従業員が作成した日報の数
         putRequestScope(AttributeConst.PAGE, page); // ページ数
         putRequestScope(AttributeConst.MAX_ROW, JpaConst.ROW_PER_PAGE); // 1ページに表示するレコードの数
         putRequestScope(AttributeConst.TOP_TARGET, target); // targetの値
+
+        putRequestScope(AttributeConst.REACT_GOOD_LIST, goodReactions); //いいねリアクション
+        putRequestScope(AttributeConst.REACT_PRAISE_LIST, praiseReactions); //賞賛リアクション
 
         //セッションにフラッシュメッセージが設定されている場合はリクエストスコープに移し替え、セッションからは削除する
         String flush = getSessionScope(AttributeConst.FLUSH);
