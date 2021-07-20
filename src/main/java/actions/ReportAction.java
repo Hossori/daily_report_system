@@ -49,9 +49,7 @@ public class ReportAction extends ActionBase {
         List<ReportView> reports = service.getAllPerPage(page);
         List<Integer> goodReactions = service.getReactionCounts(reports, JpaConst.REACT_TYPE_GOOD);
         List<Integer> praiseReactions = service.getReactionCounts(reports, JpaConst.REACT_TYPE_PRAISE);
-        System.out.println(reports.size());
-        System.out.println(goodReactions.size());
-        System.out.println(praiseReactions.size());
+
         //全日報データの件数を取得
         long reportsCount = service.countAll();
 
