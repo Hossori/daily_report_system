@@ -56,7 +56,10 @@
                             <td class="report_date"><fmt:formatDate value='${reportDay}' pattern='yyyy-MM-dd' /></td>
                             <td class="report_title">${reports.get(i).title}</td>
                             <td class="report_action"><a href="<c:url value='?action=${actRep}&command=${commShow}&id=${reports.get(i).id}' />">詳細を見る</a></td>
-                            <td class="report_reaction">いいね ${react_good_list.get(i)} 賞賛 ${react_praise_list.get(i)}</td>
+                            <td class="report_reaction">
+                                <i class="far fa-thumbs-up"></i> ${react_good_list.get(i)}&nbsp;&nbsp;
+                                <i class="far fa-handshake"></i> ${react_praise_list.get(i)}
+                            </td>
                         </tr>
                     </c:forEach>
                 </c:if>
