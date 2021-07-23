@@ -25,7 +25,7 @@ public class ReportConverter {
                 rv.getContent(),
                 rv.getCreatedAt(),
                 rv.getUpdatedAt(),
-                ReactionConverter.toModelList(rv.getReactionList()));
+                rv.getReactionList());
     }
 
     /**
@@ -47,7 +47,7 @@ public class ReportConverter {
                 r.getContent(),
                 r.getCreatedAt(),
                 r.getUpdatedAt(),
-                ReactionConverter.toViewList(r.getReactionList()));
+                r.getReactionList());
     }
 
     /**
@@ -56,13 +56,13 @@ public class ReportConverter {
      * @return Viewモデルのリスト
      */
     public static List<ReportView> toViewList(List<Report> list) {
-        List<ReportView> evs = new ArrayList<>();
+        List<ReportView> rvs = new ArrayList<>();
 
         for (Report r : list) {
-            evs.add(toView(r));
+            rvs.add(toView(r));
         }
 
-        return evs;
+        return rvs;
     }
 
     /**
@@ -78,7 +78,7 @@ public class ReportConverter {
         r.setContent(rv.getContent());
         r.setCreatedAt(rv.getCreatedAt());
         r.setUpdatedAt(rv.getUpdatedAt());
-        r.setReactionList(ReactionConverter.toModelList(rv.getReactionList()));
+        rv.getReactionList();
 
     }
 
@@ -94,7 +94,7 @@ public class ReportConverter {
         rv.setTitle(r.getTitle());
         rv.setCreatedAt(r.getCreatedAt());
         rv.setUpdatedAt(r.getUpdatedAt());
-        rv.setReactionList(ReactionConverter.toViewList(r.getReactionList()));
+        r.getReactionList();
     }
 
 }

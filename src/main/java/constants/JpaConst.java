@@ -71,6 +71,7 @@ public interface JpaConst {
     String JPQL_PARM_EMPLOYEE = "employee"; //従業員
     String JPQL_PARM_FOLLOWED = "followed"; //フォローされている従業員
     String JPQL_PARM_REPORT = "report"; //レポート
+    String JPQL_PARM_REACT_TYPE = "reaction_type"; //リアクションの種類
 
     //NamedQueryの nameとquery
     //全ての従業員をidの降順に取得する
@@ -111,10 +112,20 @@ public interface JpaConst {
         "SELECT COUNT(r) FROM Report AS r INNER JOIN Follow AS f ON r.employee = f.followed WHERE f.employee = :"
                 + JPQL_PARM_EMPLOYEE;
     //employee,followedを指定してFollowエンティティを取得する
-    String Q_FLW_GET_PRIMARYKEY = ".getPrimaryKey";
+    String Q_FLW_GET_PRIMARYKEY = ENTITY_FLW + ".getPrimaryKey";
     String Q_FLW_GET_PRIMARYKEY_DEF = "SELECT f FROM Follow AS f WHERE f.employee = :" + JPQL_PARM_EMPLOYEE
                                                                     + " AND f.followed = :" + JPQL_PARM_FOLLOWED;
     //レポートに対するリアクションを取得する
-    String Q_REACT_GET_REPORT_REACTION = ".getReportReaction";
+    String Q_REACT_GET_REPORT_REACTION = ENTITY_REACT + ".getReportReaction";
     String Q_REACT_GET_REPORT_REACTION_DEF = "SELECT re FROM Reaction AS re WHERE re.report = :" + JPQL_PARM_REPORT;
+    //指定した従業員が指定したレポートに特定のリアクションをしている数を取得する(リアクション済みかどうかのチェック)
+    String Q_REACT_IS_REACT = ENTITY_REACT + ".isReact";
+    String Q_REACT_IS_REACT_DEF = "SELECT COUNT(re) FROM Reaction AS re WHERE re.employee = :" + JPQL_PARM_EMPLOYEE
+                                                                           + " AND re.report = :" + JPQL_PARM_REPORT
+                                                                           + " AND re.reactionType = :" + JPQL_PARM_REACT_TYPE;
+    //従業員,レポート,リアクションタイプを指定してReactionエンティティを取得する
+    String Q_REACT_GET_REACTION = ENTITY_REACT + ".getEntity";
+    String Q_REACT_GET_REACTION_DEF = "SELECT re FROM Reaction AS re WHERE re.employee = :" + JPQL_PARM_EMPLOYEE
+                                                                       + " AND re.report = :" + JPQL_PARM_REPORT
+                                                                       + " AND re.reactionType = :" + JPQL_PARM_REACT_TYPE;
 }

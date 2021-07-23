@@ -61,7 +61,12 @@ public enum AttributeConst {
     REACT_PRAISE("react_praise"),
     //リアクションリスト
     REACT_GOOD_LIST("react_good_list"),
-    REACT_PRAISE_LIST("react_praise_list");
+    REACT_PRAISE_LIST("react_praise_list"),
+    //リアクションの種類
+    REACT_TYPE("react_type"),
+    //リアクション済みかどうか
+    IS_GOOD_REACT("is_good_react"),
+    IS_PRAISE_REACT("is_praise_react");
 
     private final String text;
     private final Integer i;

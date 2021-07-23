@@ -8,12 +8,12 @@ import java.util.List;
 import javax.servlet.ServletException;
 
 import actions.views.EmployeeView;
-import actions.views.ReactionView;
 import actions.views.ReportView;
 import constants.AttributeConst;
 import constants.ForwardConst;
 import constants.JpaConst;
 import constants.MessageConst;
+import models.Reaction;
 import services.ReportService;
 
 /**
@@ -47,6 +47,7 @@ public class ReportAction extends ActionBase {
         //指定されたページ数の一覧画面に表示する日報データを取得
         int page = getPage();
         List<ReportView> reports = service.getAllPerPage(page);
+        System.out.println("getAllPerPage => OK");
         List<Integer> goodReactions = service.getReactionCounts(reports, JpaConst.REACT_TYPE_GOOD);
         List<Integer> praiseReactions = service.getReactionCounts(reports, JpaConst.REACT_TYPE_PRAISE);
 
@@ -121,7 +122,7 @@ public class ReportAction extends ActionBase {
                     getRequestParam(AttributeConst.REP_CONTENT),
                     null,
                     null,
-                    new ArrayList<ReactionView>());
+                    new ArrayList<Reaction>());
 
             //日報情報登録
             List<String> errors = service.create(rv);
@@ -165,13 +166,28 @@ public class ReportAction extends ActionBase {
             forward(ForwardConst.FW_ERR_UNKNOWN);
 
         } else {
-
             putRequestScope(AttributeConst.REPORT, rv); //取得した日報データ
             putRequestScope(AttributeConst.REACT_GOOD, goodReaction);
             putRequestScope(AttributeConst.REACT_PRAISE, praiseReaction);
+            putRequestScope(AttributeConst.TOKEN, getTokenId()); //リアクションのクリエイト,デストロイ用
 
+            //ログイン中の従業員
+            EmployeeView loginEmployee = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
+            //リアクション済みかどうか
+            Boolean isGoodReaction = service.isReaction(loginEmployee, rv, JpaConst.REACT_TYPE_GOOD);
+            Boolean isPraiseReaction = service.isReaction(loginEmployee, rv, JpaConst.REACT_TYPE_PRAISE);
+            putRequestScope(AttributeConst.IS_GOOD_REACT, isGoodReaction);
+            putRequestScope(AttributeConst.IS_PRAISE_REACT, isPraiseReaction);
+
+            if(getSessionScope(AttributeConst.FLUSH) != null) {
+                putRequestScope(AttributeConst.FLUSH, getSessionScope(AttributeConst.FLUSH));
+                removeSessionScope(AttributeConst.FLUSH);
+            }
+
+            System.out.println("forward");
             //詳細画面を表示
             forward(ForwardConst.FW_REP_SHOW);
+            System.out.println("forward_ok");
         }
     }
 

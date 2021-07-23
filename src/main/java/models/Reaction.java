@@ -18,9 +18,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Table(name=JpaConst.TABLE_REACT)
-@NamedQueries({ //適当にクエリいれておく
+@NamedQueries({
     @NamedQuery(name=JpaConst.Q_REACT_GET_REPORT_REACTION,
-                query=JpaConst.Q_REACT_GET_REPORT_REACTION_DEF)
+                query=JpaConst.Q_REACT_GET_REPORT_REACTION_DEF),
+    @NamedQuery(name=JpaConst.Q_REACT_IS_REACT,
+                query=JpaConst.Q_REACT_IS_REACT_DEF),
+    @NamedQuery(name=JpaConst.Q_REACT_GET_REACTION,
+                query=JpaConst.Q_REACT_GET_REACTION_DEF)
 })
 
 @Getter

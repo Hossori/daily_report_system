@@ -6,10 +6,11 @@ import java.util.List;
 
 import actions.views.EmployeeConverter;
 import actions.views.EmployeeView;
-import actions.views.ReactionView;
 import actions.views.ReportConverter;
 import actions.views.ReportView;
 import constants.JpaConst;
+import models.Employee;
+import models.Reaction;
 import models.Report;
 import models.validators.ReportValidator;
 
@@ -85,12 +86,21 @@ public class ReportService extends ServiceBase {
      * @return 一覧画面に表示するデータのリスト
      */
     public List<ReportView> getAllPerPage(int page) {
-
         List<Report> reports = em.createNamedQuery(JpaConst.Q_REP_GET_ALL, Report.class)
                 .setFirstResult(JpaConst.ROW_PER_PAGE * (page - 1))
                 .setMaxResults(JpaConst.ROW_PER_PAGE)
                 .getResultList();
-        return ReportConverter.toViewList(reports);
+        System.out.println("getAllPerPage NamedQuery => OK");
+        for(Report r:reports) {
+            System.out.println("id"+r.getId());
+            for(Reaction re:r.getReactionList()) {
+                System.out.println(re.getReactionType());
+            }
+        }
+        System.out.println("convert");
+        List<ReportView> rvs = ReportConverter.toViewList(reports);
+        System.out.println("convert_ok");
+        return rvs;
     }
 
     /*
@@ -121,13 +131,39 @@ public class ReportService extends ServiceBase {
     public Integer getReactionCount(ReportView rv, Integer reactionType) {
         Integer count = 0;
 
-        for(ReactionView rev:rv.getReactionList()) {
-            if(rev.getReactionType() == reactionType) {
+        List<Reaction> reactionList = rv.getReactionList();
+
+        for(Reaction re:reactionList) {
+            if(re.getReactionType().equals(reactionType)) {
                 count++;
             }
         }
 
         return count;
+    }
+
+    /*
+     * ログイン中の従業員がレポートに指定した種類のリアクションをしているかどうか判定
+     * @param loginEmployee ログイン中の従業員
+     * @param rv 対象のレポート
+     * @param reactionType リアクションの種類
+     * @return リアクション済みかどうかのboolean値
+     */
+    public Boolean isReaction(EmployeeView loginEmployee, ReportView rv, Integer reactionType) {
+        Employee e = EmployeeConverter.toModel(loginEmployee);
+        Report r = ReportConverter.toModel(rv);
+
+        Long count = em.createNamedQuery(JpaConst.Q_REACT_IS_REACT, Long.class)
+                                            .setParameter(JpaConst.JPQL_PARM_EMPLOYEE, e)
+                                            .setParameter(JpaConst.JPQL_PARM_REPORT, r)
+                                            .setParameter(JpaConst.JPQL_PARM_REACT_TYPE, reactionType)
+                                            .getSingleResult();
+
+        if(0 == count) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     /**
